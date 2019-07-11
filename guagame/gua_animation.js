@@ -19,11 +19,15 @@ class GuaAnimation {
         this.frameCount--
         if (this.frameCount === 0) {
             this.frameCount = 3
+            // 切换图片下标，防止溢出，使用 %
             this.frameIndex = (this.frameIndex + 1) % this.frames.length
             this.texture = this.frames[this.frameIndex]
         }
     }
     draw() {
         this.game.drawImage(this)
+    }
+    move(x) {
+        this.x += x
     }
 }
