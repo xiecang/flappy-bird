@@ -43,12 +43,18 @@ let __main = function () {
         enemy2: 'img/enemy2.png',
         enemy3: 'img/enemy3.png',
         enemy4: 'img/enemy4.png',
+        // run
         run1: 'img/run-01.png',
         run2: 'img/run-02.png',
         run3: 'img/run-03.png',
         run4: 'img/run-04.png',
         run5: 'img/run-05.png',
         run6: 'img/run-06.png',
+        // 停止
+        idle1: 'img/idle-00.png',
+        idle2: 'img/idle-01.png',
+        idle3: 'img/idle-02.png',
+        idle4: 'img/idle-03.png',
     }
     // 这里有个回调的问题需要加上function, 并将操作放在其中
     let game = GuaGame.instance(30, images, function(game){

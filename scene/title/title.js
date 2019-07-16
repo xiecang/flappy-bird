@@ -15,13 +15,13 @@ class SceneTitle extends GuaScene {
     }
     setupInputs() {
         let self = this
-        self.game.registerAction('a', function() {
+        self.game.registerAction('a', function(keyStatus) {
             // 这样是错误的，在回调中不能使用 this
             // this.r.move(2)
-            self.r.move(-2)
+            self.r.move(-2, keyStatus)
         })
-        self.game.registerAction('d', function() {
-            self.r.move(2)
+        self.game.registerAction('d', function (keyStatus) {
+            self.r.move(2, keyStatus)
         })
 
     }
