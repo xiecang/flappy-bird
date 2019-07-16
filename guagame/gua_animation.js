@@ -22,6 +22,9 @@ class GuaAnimation {
         this.texture = this.frames()[0]
         this.frameIndex = 0
         this.frameCount = 3
+        // 图片的翻转状态
+        this.flipX = false
+        this.w = this.texture.width
     }
     static new(game) {
         return new this(game)
@@ -39,9 +42,23 @@ class GuaAnimation {
         }
     }
     draw() {
-        this.game.drawImage(this)
+        // this.game.drawImage(this)
+        let context = this.game.context
+        if (this.flipX) {
+            // 这里是图片翻转
+            context.save()
+            let x = this.x + this.w / 2
+            context.translate(x, 0)
+            context.scale(-1, 1)
+            context.translate(-x, 0)
+            context.drawImage(this.texture, this.x, this.y)
+            context.restore()
+        } else {
+            context.drawImage(this.texture, this.x, this.y)
+        }
     }
     move(x, keyStatus) {
+        this.flipX = x < 0
         this.x += x
         let names = {
             down: 'run',
