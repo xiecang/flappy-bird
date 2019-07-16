@@ -55,6 +55,8 @@ let __main = function () {
         idle2: 'img/idle-01.png',
         idle3: 'img/idle-02.png',
         idle4: 'img/idle-03.png',
+        // 背景
+        cave: 'img/bg_day.png'
     }
     // 这里有个回调的问题需要加上function, 并将操作放在其中
     let game = GuaGame.instance(30, images, function(game){
