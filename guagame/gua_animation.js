@@ -43,11 +43,13 @@ class GuaAnimation {
     }
     move(x, keyStatus) {
         this.x += x
-        if (keyStatus === 'down'){
-            this.changeAnimation('run')
-        } else if (keyStatus === 'up') {
-            this.changeAnimation('idle')
+        let names = {
+            down: 'run',
+            up: 'idle',
         }
+        let name = names[keyStatus]
+        this.changeAnimation(name)
+
     }
     changeAnimation(name) {
         this.animationsName = name
