@@ -10,23 +10,40 @@ class SceneTitle extends GuaScene {
         let cave = GuaImage.new(game, 'cave')
         this.addElement(cave)
 
-        let r = GuaAnimation.new(game)
-        r.x = 100
-        r.y = 200
-        this.r = r
-        this.addElement(r)
+        let g = GuaImage.new(game, 'ground')
+        g.x = 0
+        g.y = 450
+        this.g = g
+        this.addElement(g)
+
+        let bird = GuaAnimation.new(game)
+        bird.x = 100
+        bird.y = 200
+        this.bird = bird
+        this.addElement(bird)
+
         this.setupInputs()
     }
+    update() {
+        super.update()
+        let g = this.g
+        g.x -= 5
+    }
+
     setupInputs() {
         let self = this
+        let b = this.bird
+
         self.game.registerAction('a', function(keyStatus) {
             // 这样是错误的，在回调中不能使用 this
             // this.r.move(2)
-            self.r.move(-2, keyStatus)
+            b.move(-2, keyStatus)
         })
         self.game.registerAction('d', function (keyStatus) {
-            self.r.move(2, keyStatus)
+            b.move(2, keyStatus)
         })
-
+        self.game.registerAction('j', function (keyStatus) {
+            b.jump()
+        })
     }
 }

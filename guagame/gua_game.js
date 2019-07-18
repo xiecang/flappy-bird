@@ -48,7 +48,7 @@ class GuaGame {
         let actions = Object.keys(g.actions)  // 获取到所有的 actions
         for (let i = 0; i < actions.length; i++) {
             let key = actions[i]
-            var status = g.keydowns[key]
+            let status = g.keydowns[key]
             if (status === 'down') {
                 // 如果按键按下，调用注册的 action 的 callback
                 // 并传过去一个状态
