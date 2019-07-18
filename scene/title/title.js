@@ -10,11 +10,20 @@ class SceneTitle extends GuaScene {
         let cave = GuaImage.new(game, 'cave')
         this.addElement(cave)
 
-        let g = GuaImage.new(game, 'ground')
-        g.x = 0
-        g.y = 450
-        this.g = g
-        this.addElement(g)
+        // let g = GuaImage.new(game, 'ground')
+        // g.x = 0
+        // g.y = 450
+        // this.g = g
+        // this.addElement(g)
+        this.grounds = []
+        for (let i = 0; i < 3; i++) {
+            let g = GuaImage.new(game, 'ground')
+            g.x = i * 336
+            g.y = 450
+            this.addElement(g)
+            this.grounds.push(g)
+        }
+        this.skipCount = 4
 
         let bird = GuaAnimation.new(game)
         bird.x = 100
@@ -26,8 +35,19 @@ class SceneTitle extends GuaScene {
     }
     update() {
         super.update()
-        let g = this.g
-        g.x -= 5
+        super.update()
+        // 循环让地面移动
+        // 当 skipCount == 0 时，反向移动 15，正常情况 -5
+        this.skipCount --
+        this.offset = -5
+        if (this.skipCount === 0) {
+            this.skipCount = 4
+            this.offset = 15
+        }
+        for (let i = 0; i < 3; i++) {
+            let g = this.grounds[i]
+            g.x += this.offset
+        }
     }
 
     setupInputs() {
