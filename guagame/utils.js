@@ -1,5 +1,7 @@
 // 一些公共函数
 let log = console.log.bind(console)
+let es = sel => document.querySelectorAll(sel)
+let e = sel => document.querySelector(sel)
 
 // 加载图片
 let imageFromPath = function (path) {

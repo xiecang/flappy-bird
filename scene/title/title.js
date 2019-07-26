@@ -26,15 +26,36 @@ class Pipes {
         p2.y = p1.y + p1.h + this.pipeSpace
     }
     update() {
-        for (let p of this.pipes) {
-            p.x -= 5
-            if (p.x < -100) {
-                log(p.x)
-                p.x += this.pipeSpaceX * this.columsOfPipe
-                log(p.x)
+        // for (let p of this.pipes) {
+        //     p.x -= 5
+        //     if (p.x < -100) {
+        //         log(p.x)
+        //         p.x += this.pipeSpaceX * this.columsOfPipe
+        //         log(p.x)
+        //     }
+        // }
+        // 设置管子的间距
+        for (let i = 0; i < this.pipes.length / 2; i += 2) {
+            let p1 = this.pipes[i]
+            let p2 = this.pipes[i+1]
+            p1.x -= 5
+            p2.x -= 5
+            if (p1.x < -100) {
+                p1.x += this.pipeSpaceX * this.columsOfPipe
+            }
+            if (p2.x < -100) {
+                p2.x += this.pipeSpaceX * this.columsOfPipe
+                this.resetPipesPosition(p1, p2)
             }
         }
+
     }
+    debug() {
+        this.pipeSpaceX = config.pip_spaceX.value
+        this.pipeSpace = config.pip_space.value
+        // log(this.pipeSpaceX)
+    }
+
     draw() {
         // this.game.drawImage(this)
         let context = this.game.context
@@ -71,7 +92,7 @@ class SceneTitle extends GuaScene {
         // 加入水管
         this.pipe = Pipes.new(game)
         this.addElement(this.pipe)
-
+        // 循环移动的地面
         this.grounds = []
         for (let i = 0; i < 3; i++) {
             let g = GuaImage.new(game, 'ground')
@@ -91,7 +112,6 @@ class SceneTitle extends GuaScene {
         this.setupInputs()
     }
     update() {
-        super.update()
         super.update()
         // 循环让地面移动
         // 当 skipCount == 0 时，反向移动 15，正常情况 -5
