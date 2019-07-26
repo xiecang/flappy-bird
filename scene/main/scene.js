@@ -67,9 +67,9 @@ class Enemy extends GuaImage {
             this.setup()
         }
     }
-    debug() {
-        this.y += config.enemy_speed
-    }
+    // debug() {
+    //     this.y += config.enemy_speed
+    // }
 }
 
 class Cloud extends GuaImage {
