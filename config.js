@@ -17,5 +17,17 @@ const config = {
         max: 20,
         min: 1,
     },
+    // particle_system_duration: {
+    //     _comment: '粒子效果停留时间',
+    //     value: 20,
+    //     max: 50,
+    //     min: 1,
+    // },
+    // number_of_particles: {
+    //     _comment: '粒子个数',
+    //     value: 5,
+    //     max: 10,
+    //     min: 1,
+    // },
 }
 

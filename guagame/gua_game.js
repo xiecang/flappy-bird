@@ -13,34 +13,37 @@ class GuaGame {
         // 这里有一个 this 的陷阱，可以使用 self 和 箭头函数来避免
         let self = this
         window.addEventListener('keydown', event => {
-            this.keydowns[event.key] = 'down'
-
+            this.keydowns[event.key] = "down"
         })
-        window.addEventListener('keyup', function(){
+        window.addEventListener('keyup', function () {
             self.keydowns[event.key] = 'up'
         })
         this.init()
     }
+
     // 单例模式，静态方法, 为了只初始化 guagame 一次
     static instance(...args) {
         this.i = this.i || new this(...args)
         return this.i
     }
+
     drawImage(img) {
-        // 这里的 img 是一个 GuaImage
         this.context.drawImage(img.texture, img.x, img.y)
     }
-    // 这里如果不使用箭头函数就要在前面 bind
+
     update() {
         this.scene.update()
     }
+
     draw() {
         this.scene.draw()
     }
+
     registerAction(key, callback) {
-        log('registerAction: ', key)
         this.actions[key] = callback
+        // log('actions', this.actions)
     }
+
     runloop() {
         // log(window.fps)
         let g = this
@@ -48,15 +51,18 @@ class GuaGame {
         let actions = Object.keys(g.actions)  // 获取到所有的 actions
         for (let i = 0; i < actions.length; i++) {
             let key = actions[i]
+
             let status = g.keydowns[key]
+            // log('status', status, g.keydowns, key)
+
             if (status === 'down') {
-                // 如果按键按下，调用注册的 action 的 callback
-                // 并传过去一个状态
+                // 如果按键被按下, 调用注册的 action
                 g.actions[key]('down')
-            } else if (status === 'up'){
+            } else if (status === 'up') {
                 g.actions[key]('up')
-                // 删除这个 key 的状态
+                // 删除掉这个 key 的状态
                 g.keydowns[key] = null
+
             }
         }
         // update 更新
@@ -71,17 +77,13 @@ class GuaGame {
             g.runloop()
         }, 1000 / window.fps)
     }
+
     textureByName(name) {
         let g = this
         let img = g.images[name]
-        // let image = {
-        //     w: img.width,
-        //     h: img.height,
-        //     image: img,
-        // }
-        // return image
         return img
     }
+
     runWithScene(scene) {
         let g = this
         g.scene = scene
@@ -90,9 +92,11 @@ class GuaGame {
             g.runloop()
         }, 1000 / window.fps)
     }
+
     replaceScene(scene) {
         this.scene = scene
     }
+
     __start(scene) {
         // 第一次运行需要加上 runCallback
         this.runCallback(this)
@@ -102,6 +106,7 @@ class GuaGame {
         // }, 1000 / fps)
         // return g
     }
+
     init() {
         let g = this
         let loads = []

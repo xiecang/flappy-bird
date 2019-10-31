@@ -1,68 +1,11 @@
-class GuaParticleSystem {
-    constructor(game) {
-        this.game = game
-        this.setup()
-    }
-    static new(game) {
-        let i = new this(game)
-        return i
-    }
-    setup() {
-        // 设置存在时间
-        this.duration = 30
-
-        this.x = 100
-        this.y = 150
-        this.numberOfParticles = 40
-        this.particles = []
-    }
-    update() {
-        this.duration--
-        // 存在时间为 0 时，就在场景中删除自己，还有一种做法是在 draw() 中
-        if (this.duration < 0) {
-            // log(this.duration)
-            this.scene.deleteElement(this)
-        }
-        // 添加小火花
-        if (this.particles.length < this.numberOfParticles) {
-            let p = GuaParticle.new(this.game)
-            // 设置初始化 x, y, vx, vy
-            let x = this.x
-            let y = this.y
-            let s = 2
-            let vx = randomBetween(-2, 2)
-            let vy = randomBetween(-2, 2)
-            p.init(x, y, vx, vy)
-            this.particles.push(p)
-        }
-        // 更新所有的小火花
-        for (let p of this.particles) {
-            p.update()
-        }
-        // 删除死掉的小火花
-        this.particles = this.particles.filter(p => p.life > 0)
-    }
-    draw() {
-        if (this.duration < 0) {
-            // 只是让他不显示，而没有删除它
-            return
-        }
-        for (let p of this.particles) {
-            p.draw()
-        }
-    }
-}
-
 class GuaParticle extends GuaImage {
     constructor(game) {
-        super(game, 'bullet')
-        this.setup()
+        super(game, 'particle')
+        this.setUp()
     }
-    setup() {
-        // 火花的生命值
+    setUp() {
         this.life = 10
     }
-    // 初始化 x， y 以及 加速度
     init(x, y, vx, vy) {
         this.x = x
         this.y = y
@@ -73,9 +16,56 @@ class GuaParticle extends GuaImage {
         this.life--
         this.x += this.vx
         this.y += this.vy
-        // 加速度
-        let a = 0.02
-        this.vx += a * this.vx
-        this.vy += a * this.vy
+        let factor = 0.01
+        this.vx += factor * this.vx
+        this.vy += factor * this.vy
+    }
+}
+
+
+class GuaParticleSystem {
+    constructor(game, x, y) {
+        this.game = game
+        this.setup(x, y)
+    }
+    static new(game, x, y) {
+        return new this(game, x, y)
+    }
+    setup(x, y) {
+        this.duration = config.particle_system_duration.value || 20
+        this.x = x
+        this.y = y
+        this.numberOfParticles = config.number_of_particles.value || 5
+        this.particles = []
+    }
+    update() {
+        this.duration--
+        if (this.duration < 0) {
+
+        }
+        if (this.particles.length < this.numberOfParticles) {
+            let p = GuaParticle.new(this.game)
+
+            let s = 3
+            let vx = randomBetween(-s, s)
+            let vy = randomBetween(-s, s)
+            p.init(this.x, this.y, vx, vy)
+            this.particles.push(p)
+        }
+
+        for (let p of this.particles) {
+            p.update()
+        }
+
+        this.particles = this.particles.filter(p => p.life > 0)
+    }
+    draw() {
+        if (this.duration < 0) {
+            this.game.scene.deleteElement(this)
+            return
+        }
+        for (let p of this.particles) {
+            p.draw()
+        }
     }
 }

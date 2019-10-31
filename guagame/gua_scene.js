@@ -3,20 +3,12 @@ class GuaScene {
         this.game = game
         this.debugModelEnable = true
         this.elements = []
+
     }
 
+    // 将子类中的共同方法提取到父类中
     static new(game) {
-        let i = new this(game)
-        return i
-    }
-
-    draw() {
-        for (let i = 0; i < this.elements.length; i++) {
-            let e = this.elements[i]
-            // this.game.drawImage(e)
-            // 进一步抽象 调用元素的 draw()
-            e.draw()
-        }
+        return new this(game)
     }
 
     addElement(img) {
@@ -30,8 +22,32 @@ class GuaScene {
         this.elements.splice(index, 1)
     }
 
+
+    drawRect(x, y, w, h, color) {
+        let self = this
+        let context = this.game.context
+
+        context.fillStyle = color
+        context.fillRect(x, y, w, h)
+    }
+
+    drawLabel(text, x, y, color, fontSize) {
+        let context = this.game.context
+
+        // log('drawLabel', x, y)
+        context.font = fontSize + "px serif";
+        context.fillStyle = color
+        context.fillText(text, x, y)
+    }
+
+    draw() {
+        for (let i = 0; i < this.elements.length; i++) {
+            let e = this.elements[i]
+            e.draw()
+        }
+    }
+
     update() {
-        this.debug && this.debug()
         if (this.debugModelEnable) {
             for (let i = 0; i < this.elements.length; i++) {
                 const e = this.elements[i]

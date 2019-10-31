@@ -25,4 +25,13 @@ class GuaImage {
     update() {
 
     }
+
+    hasPoint(x, y) {
+        // 判断一个点是否在矩形内(点击的点)
+        let o = this
+
+        let xIn = x >= o.x && x <= o.x + o.w
+        let yIn = y >= o.y && y <= o.y + o.h
+        return xIn && yIn
+    }
 }
