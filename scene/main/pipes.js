@@ -17,15 +17,26 @@ class Pipes {
             this.pipes.push(p1)
             this.pipes.push(p2)
         }
+
+        this.alive = true
     }
+
     static new(game) {
         return new this(game)
     }
+
     resetPipesPosition(p1, p2) {
         p1.y = randomBetween(-280, 0)
         p2.y = p1.y + p1.h + this.pipeSpace
     }
+
     update() {
+        if (this.alive) {
+            this.move()
+        }
+    }
+
+    move() {
         // for (let p of this.pipes) {
         //     p.x -= 5
         //     if (p.x < -100) {
@@ -37,7 +48,7 @@ class Pipes {
         // 设置管子的间距
         for (let i = 0; i < this.pipes.length / 2; i += 2) {
             let p1 = this.pipes[i]
-            let p2 = this.pipes[i+1]
+            let p2 = this.pipes[i + 1]
             p1.x -= 5
             p2.x -= 5
             if (p1.x < -100) {
@@ -48,8 +59,8 @@ class Pipes {
                 this.resetPipesPosition(p1, p2)
             }
         }
-
     }
+
     debug() {
         this.pipeSpaceX = config.pip_spaceX.value
         this.pipeSpace = config.pip_space.value
@@ -74,5 +85,9 @@ class Pipes {
 
             context.restore()
         }
+    }
+
+    kill() {
+        this.alive = false
     }
 }

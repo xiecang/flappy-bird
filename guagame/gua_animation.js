@@ -30,17 +30,24 @@ class GuaAnimation {
         // 加速度
         this.gy = 10
         this.vy = 0
+
+        this.alive = true
+        this.lives = 3
     }
+
     static new(game) {
         return new this(game)
     }
+
     frames() {
         return this.animations[this.animationsName]
     }
+
     jump() {
         this.vy = -10
         this.rotation = -45
     }
+
     update() {
         this.frameCount--
         if (this.frameCount === 0) {
@@ -60,6 +67,7 @@ class GuaAnimation {
             this.rotation += 5
         }
     }
+
     draw() {
         // this.game.drawImage(this)
         let context = this.game.context
@@ -76,19 +84,9 @@ class GuaAnimation {
         context.drawImage(this.texture, 0, 0)
 
         context.restore()
-        // if (this.flipX) {
-        //     // 这里是图片翻转
-        //     context.save()
-        //     let x = this.x + this.w / 2
-        //     context.translate(x, 0)
-        //     context.scale(-1, 1)
-        //     context.translate(-x, 0)
-        //     context.drawImage(this.texture, this.x, this.y)
-        //     context.restore()
-        // } else {
-        //     context.drawImage(this.texture, this.x, this.y)
-        // }
+
     }
+
     move(x, keyStatus) {
         this.flipX = x < 0
         this.x += x
@@ -100,6 +98,17 @@ class GuaAnimation {
         // this.changeAnimation(name)
 
     }
+
+    collide(image) {
+        let i = image
+        let o = this
+        return o.alive && (rectIntersects(o, i) || rectIntersects(i, o))
+    }
+
+    kill() {
+        this.alive = false
+    }
+
     // changeAnimation(name) {
     //     this.animationsName = name
     // }

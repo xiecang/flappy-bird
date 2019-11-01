@@ -4,8 +4,6 @@ class SceneTitle extends GuaScene {
         let label = GuaLabel.new(game, 'hello')
         this.addElement(label)
 
-        // let particle = GuaParticleSystem.new(game)
-        // this.addElement(particle)
         // cave
         let cave = GuaImage.new(game, 'cave')
         this.addElement(cave)
@@ -39,6 +37,9 @@ class SceneTitle extends GuaScene {
 
     update() {
         super.update()
+        if(!this.bird.alive) {
+            return
+        }
         // 循环让地面移动
         // 当 skipCount == 0 时，反向移动 15，正常情况 -5
         this.skipCount --
@@ -51,6 +52,25 @@ class SceneTitle extends GuaScene {
             let g = this.grounds[i]
             g.x += this.offset
         }
+
+        // bird 与 pipe 碰撞检测
+        for(let p of this.pipe.pipes) {
+            if (p.collide(this.bird)) {
+                log("bird 与 pipe 碰撞")
+                this.bird.kill()
+                // 游戏结束
+
+                this.pipe.kill()
+            }
+        }
+
+        // bird 与 地面 碰撞检测
+        for(let g of this.grounds) {
+            if (g.collide(this.bird)) {
+                // log("bird 与 地面 碰撞")
+            }
+        }
+
     }
 
     setupInputs() {
@@ -58,8 +78,6 @@ class SceneTitle extends GuaScene {
         let b = this.bird
 
         self.game.registerAction('a', function(keyStatus) {
-            // 这样是错误的，在回调中不能使用 this
-            // this.r.move(2)
             b.move(-self.birdSpeed, keyStatus)
         })
         self.game.registerAction('d', function (keyStatus) {
