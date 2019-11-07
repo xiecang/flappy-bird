@@ -21,8 +21,8 @@ class SceneTitle extends GuaScene {
         }
         this.skipCount = 4
 
-        let bird = GuaAnimation.new(game)
-        // let bird = Bird.new(game, 'bird')
+        // let bird = GuaAnimation.new(game)
+        let bird = Bird.new(game)
         bird.x = 100
         bird.y = 200
         this.bird = bird
@@ -106,9 +106,20 @@ class SceneTitle extends GuaScene {
     }
 }
 
-class Score extends GuaImage {
+class Countdown {
     constructor(game) {
-        super(game, name)
+        this.game = game
+        // 应该继承 animations
+
+        this.animations = {
+            font: [],
+        }
+
+        for (let i = 0; i < 10; i++) {
+            let name = `font${i}`
+            let t = game.textureByName(name)
+            this.animations['font'].push(t)
+        }
 
     }
 }

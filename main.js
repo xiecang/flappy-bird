@@ -99,6 +99,17 @@ let __main = function () {
         bird1: 'img/bird1_0.png',
         bird2: 'img/bird1_1.png',
         bird3: 'img/bird1_2.png',
+
+        font0: 'img/font_0.png',
+        font1: 'img/font_1.png',
+        font2: 'img/font_2.png',
+        font3: 'img/font_3.png',
+        font4: 'img/font_4.png',
+        font5: 'img/font_5.png',
+        font6: 'img/font_6.png',
+        font7: 'img/font_7.png',
+        font8: 'img/font_8.png',
+        font9: 'img/font_9.png',
     }
     // 这里有个回调的问题需要加上function, 并将操作放在其中
     let game = GuaGame.instance(30, images, function(game){

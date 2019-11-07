@@ -1,36 +1,28 @@
 class GuaAnimation {
-    constructor(game) {
+    constructor(game, animationInfo) {
         this.game = game
-        // 为了省事，在这里 hard code 一套动画
-        // this.frames = []
-        // 多种状态
-        this.animations = {
-            bird: [],
-            run: [],
-        }
-        for (let i = 1; i < 4; i++) {
-            let name = `bird${i}`
-            let t = game.textureByName(name)
-            this.animations['bird'].push(t)
-        }
-        // for (let i = 1; i < 7; i++) {
-        //     let name = `run${i}`
-        //     let t = game.textureByName(name)
-        //     this.animations['run'].push(t)
-        // }
+
+        // 初始化 animations
+        this.animations = this.initAnimations(animationInfo)
+        // 当前动画名
         this.animationsName = 'bird'
-        this.texture = this.frames()[0]
+
+        // 初始化动画图片
+        let fs = this.frames()
+        if (fs === undefined) {
+            log("未正确初始化 GuaAnimation")
+            return
+        }
+        this.texture = fs[0]
         this.frameIndex = 0
         this.frameCount = 3
-        // 图片的翻转状态
-        this.flipX = false
         this.w = this.texture.width
         this.h = this.texture.height
-        // this.rotation = 45
+
+        // 图片的翻转状态
+        this.flipX = false
+
         this.rotation = 0
-        // 加速度
-        this.gy = 10
-        this.vy = 0
 
         this.alive = true
         this.lives = 3
@@ -40,14 +32,34 @@ class GuaAnimation {
         return new this(game)
     }
 
+    initAnimations(animationInfo) {
+        /**
+         let animationInfo = [{
+            animationName: 'bird',
+            animationNum: 4,
+        }]
+         */
+        let game = this.game
+        let animations = {}
+        log('animationInfo', animationInfo)
+        for (let info of animationInfo) {
+            let animationName = info.animationName
+            let num = info.animationNum
+            animations[animationName] = []
+            for (let i = 1; i < num; i++) {
+                let name = `${animationName}${i}`
+                let t = game.textureByName(name)
+                animations[animationName].push(t)
+            }
+        }
+        return animations
+
+    }
+
     frames() {
         return this.animations[this.animationsName]
     }
 
-    jump() {
-        this.vy = -10
-        this.rotation = -45
-    }
 
     update() {
         this.frameCount--
@@ -57,19 +69,6 @@ class GuaAnimation {
             this.frameIndex = (this.frameIndex + 1) % this.frames().length
             this.texture = this.frames()[this.frameIndex]
         }
-        if(this.alive) {
-            // 重力
-            this.y += this.vy
-            this.vy += this.gy * 0.2
-            if (this.y > 410) {
-                this.y = 410
-            }
-            // 更新角度
-            if (this.rotation < 45) {
-                this.rotation += 5
-            }
-        }
-
     }
 
     draw() {
@@ -91,17 +90,6 @@ class GuaAnimation {
 
     }
 
-    move(x, keyStatus) {
-        this.flipX = x < 0
-        this.x += x
-        // let names = {
-        //     down: 'run',
-        //     up: 'idle',
-        // }
-        // let name = names[keyStatus]
-        // this.changeAnimation(name)
-
-    }
 
     collide(image) {
         let i = image
@@ -113,7 +101,7 @@ class GuaAnimation {
         this.alive = false
     }
 
-    // changeAnimation(name) {
-    //     this.animationsName = name
-    // }
+    changeAnimation(name) {
+        this.animationsName = name
+    }
 }

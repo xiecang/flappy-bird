@@ -22,8 +22,8 @@ class Scene extends GuaScene {
         }
         this.skipCount = 4
 
-        let bird = GuaAnimation.new(game)
-        // let bird = Bird.new(game, 'bird')
+        // let bird = GuaAnimation.new(game)
+        let bird = Bird.new(game)
         bird.x = 100
         bird.y = 200
         this.bird = bird
