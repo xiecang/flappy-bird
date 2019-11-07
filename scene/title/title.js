@@ -15,14 +15,20 @@ class SceneTitle extends GuaScene {
 
         this.initBird()
 
-        this.textReady = GuaImage.new(this.game, 'textReady')
-        this.addElement(this.textReady)
+        this.initTextReady()
 
         this.setupInputs()
     }
 
     debug() {
         this.birdSpeed = config.birdSpeed.value
+    }
+
+    initTextReady() {
+        this.textReady = GuaImage.new(this.game, 'textReady')
+        this.textReady.x = 200
+        this.textReady.y = 200
+        this.addElement(this.textReady)
     }
 
     initBird() {
@@ -44,17 +50,19 @@ class SceneTitle extends GuaScene {
         }
     }
 
-    update() {
-        super.update()
-
+    draw() {
+        super.draw()
         // 画教程
-        this.drawLabel("按k开始游戏")
+        this.drawLabel("按 k 开始游戏", 200, 300, 'green', 20)
+        this.drawLabel("按 j 小鸟跳跃", 200, 330, 'green', 20)
+
     }
 
     setupInputs() {
         let self = this
 
         self.game.registerAction('k', function (keyStatus) {
+            self.textReady.kill()
             // 加入倒计时
             let countDown = Countdown.new(self.game)
             countDown.x = 260
