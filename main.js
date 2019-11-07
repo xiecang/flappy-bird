@@ -94,6 +94,7 @@ let __main = function () {
         cave: 'img/bg_day.png',
         ground: 'img/land.png',
         pipe: 'img/pipe_up.png',
+        textReady: 'img/text_ready.png',
 
         bird1: 'img/bird1_0.png',
         bird2: 'img/bird1_1.png',

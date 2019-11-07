@@ -6,11 +6,13 @@ class Pipes {
         this.pipeSpace = 150
         // 管子横向间距
         this.pipeSpaceX = 200
-        this.columsOfPipe = 3
+        this.columsOfPipe = 10
+        // 初始管子横轴位置
+        this.initPipeX = 600
         for (let i = 0; i < this.columsOfPipe; i++) {
             let p1 = GuaImage.new(game, 'pipe')
             p1.flipY = true
-            p1.x = 500 + i * 200
+            p1.x = this.initPipeX  + i * 200
             let p2 = GuaImage.new(game, 'pipe')
             p2.x = p1.x
             this.resetPipesPosition(p1, p2)
@@ -52,10 +54,10 @@ class Pipes {
             p1.x -= 5
             p2.x -= 5
             if (p1.x < -100) {
-                p1.x += this.pipeSpaceX * this.columsOfPipe
+                p1.x += this.pipeSpaceX * this.columsOfPipe - this.initPipeX + 100
             }
             if (p2.x < -100) {
-                p2.x += this.pipeSpaceX * this.columsOfPipe
+                p2.x += this.pipeSpaceX * this.columsOfPipe - this.initPipeX + 100
                 this.resetPipesPosition(p1, p2)
             }
         }

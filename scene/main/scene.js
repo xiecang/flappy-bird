@@ -1,21 +1,21 @@
-class SceneTitle extends GuaScene {
+class Scene extends GuaScene {
     constructor(game) {
         super(game)
         let label = GuaLabel.new(game, 'hello')
         this.addElement(label)
 
         // cave
-        let cave = GuaImage.new(game, 'cave')
-        this.addElement(cave)
+        this.initCave()
 
         // 加入水管
         this.pipe = Pipes.new(game)
         this.addElement(this.pipe)
         // 循环移动的地面
         this.grounds = []
-        for (let i = 0; i < 3; i++) {
+        this.numberOfGroud = 3
+        for (let i = 0; i < this.numberOfGroud; i++) {
             let g = GuaImage.new(game, 'ground')
-            g.x = i * 336
+            g.x = i * g.w
             g.y = 450
             this.addElement(g)
             this.grounds.push(g)
@@ -23,16 +23,24 @@ class SceneTitle extends GuaScene {
         this.skipCount = 4
 
         let bird = GuaAnimation.new(game)
+        // let bird = Bird.new(game, 'bird')
         bird.x = 100
         bird.y = 200
         this.bird = bird
         this.birdSpeed = 2
         this.addElement(bird)
-
         this.setupInputs()
     }
     debug() {
         this.birdSpeed = config.birdSpeed.value
+    }
+
+    initCave() {
+        for (let i = 0; i < 2; i++) {
+            let cave = GuaImage.new(this.game, 'cave')
+            cave.x = i * cave.w
+            this.addElement(cave)
+        }
     }
 
     update() {
@@ -53,23 +61,23 @@ class SceneTitle extends GuaScene {
             g.x += this.offset
         }
 
-        // bird 与 pipe 碰撞检测
-        for(let p of this.pipe.pipes) {
-            if (p.collide(this.bird)) {
-                log("bird 与 pipe 碰撞")
-                this.bird.kill()
-                // 游戏结束
-
-                this.pipe.kill()
-            }
-        }
-
-        // bird 与 地面 碰撞检测
-        for(let g of this.grounds) {
-            if (g.collide(this.bird)) {
-                // log("bird 与 地面 碰撞")
-            }
-        }
+        // // bird 与 pipe 碰撞检测
+        // for(let p of this.pipe.pipes) {
+        //     if (p.collide(this.bird)) {
+        //         log("bird 与 pipe 碰撞")
+        //         this.bird.kill()
+        //         // 游戏结束
+        //
+        //         this.pipe.kill()
+        //     }
+        // }
+        //
+        // // bird 与 地面 碰撞检测
+        // for(let g of this.grounds) {
+        //     if (g.collide(this.bird)) {
+        //         // log("bird 与 地面 碰撞")
+        //     }
+        // }
 
     }
 

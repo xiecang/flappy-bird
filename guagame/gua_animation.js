@@ -26,7 +26,8 @@ class GuaAnimation {
         this.flipX = false
         this.w = this.texture.width
         this.h = this.texture.height
-        this.rotation = 45
+        // this.rotation = 45
+        this.rotation = 0
         // 加速度
         this.gy = 10
         this.vy = 0
@@ -56,16 +57,19 @@ class GuaAnimation {
             this.frameIndex = (this.frameIndex + 1) % this.frames().length
             this.texture = this.frames()[this.frameIndex]
         }
-        // 重力
-        this.y += this.vy
-        this.vy += this.gy * 0.2
-        if (this.y > 410) {
-            this.y = 410
+        if(this.alive) {
+            // 重力
+            this.y += this.vy
+            this.vy += this.gy * 0.2
+            if (this.y > 410) {
+                this.y = 410
+            }
+            // 更新角度
+            if (this.rotation < 45) {
+                this.rotation += 5
+            }
         }
-        // 更新角度
-        if (this.rotation < 45) {
-            this.rotation += 5
-        }
+
     }
 
     draw() {
