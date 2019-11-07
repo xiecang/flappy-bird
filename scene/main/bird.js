@@ -1,9 +1,12 @@
 class Bird extends GuaAnimation {
     constructor(game) {
-        super(game, [{
-            animationName: 'bird',
-            animationNum: 4,
-        }])
+        super(game, {
+            textures: [{
+                animationName: 'bird',
+                animationNum: 3,
+            }],
+            animationsName: 'bird'
+        })
 
         // 加速度
         this.gy = 10
@@ -17,7 +20,7 @@ class Bird extends GuaAnimation {
 
     update() {
         super.update()
-        if(this.alive) {
+        if (this.alive) {
             // 重力
             this.y += this.vy
             this.vy += this.gy * 0.2

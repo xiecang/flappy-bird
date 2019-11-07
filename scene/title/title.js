@@ -36,6 +36,7 @@ class SceneTitle extends GuaScene {
 
         this.setupInputs()
     }
+
     debug() {
         this.birdSpeed = config.birdSpeed.value
     }
@@ -61,7 +62,7 @@ class SceneTitle extends GuaScene {
 
         // 循环让地面移动
         // 当 skipCount == 0 时，反向移动 15，正常情况 -5
-        this.skipCount --
+        this.skipCount--
         this.offset = -5
         if (this.skipCount === 0) {
             this.skipCount = 4
@@ -77,22 +78,14 @@ class SceneTitle extends GuaScene {
 
     setupInputs() {
         let self = this
-        // let b = this.bird
-        //
-        // self.game.registerAction('a', function(keyStatus) {
-        //     // 这样是错误的，在回调中不能使用 this
-        //     // this.r.move(2)
-        //     b.move(-self.birdSpeed, keyStatus)
-        // })
-        // self.game.registerAction('d', function (keyStatus) {
-        //     b.move(self.birdSpeed, keyStatus)
-        // })
-        // self.game.registerAction('j', function (keyStatus) {
-        //     b.jump()
-        // })
+
         self.game.registerAction('k', function (keyStatus) {
-            let s = Scene.new(self.game)
-            self.game.replaceScene(s)
+            // 加入倒计时
+            let countDown = Countdown.new(self.game)
+            countDown.x = 260
+            countDown.y = 200
+            self.addElement(countDown)
+            // this.
         })
     }
 
@@ -103,23 +96,5 @@ class SceneTitle extends GuaScene {
 
     drawStart() {
         this.textReady.draw()
-    }
-}
-
-class Countdown {
-    constructor(game) {
-        this.game = game
-        // 应该继承 animations
-
-        this.animations = {
-            font: [],
-        }
-
-        for (let i = 0; i < 10; i++) {
-            let name = `font${i}`
-            let t = game.textureByName(name)
-            this.animations['font'].push(t)
-        }
-
     }
 }

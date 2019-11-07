@@ -96,9 +96,9 @@ let __main = function () {
         pipe: 'img/pipe_up.png',
         textReady: 'img/text_ready.png',
 
-        bird1: 'img/bird1_0.png',
-        bird2: 'img/bird1_1.png',
-        bird3: 'img/bird1_2.png',
+        bird0: 'img/bird1_0.png',
+        bird1: 'img/bird1_1.png',
+        bird2: 'img/bird1_2.png',
 
         font0: 'img/font_0.png',
         font1: 'img/font_1.png',

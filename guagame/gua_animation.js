@@ -1,15 +1,24 @@
 class GuaAnimation {
-    constructor(game, animationInfo) {
+    constructor(game, animationConfig) {
+        /*
+        let animationConfig = {
+           textures: [{
+               animationName: 'bird',
+               animationNum: 4,
+               reverse: false
+           }],
+           animationsName: 'bird'
+       }
+        */
+
         this.game = game
 
         // 初始化 animations
-        this.animations = this.initAnimations(animationInfo)
-        // 当前动画名
-        this.animationsName = 'bird'
+        this.animations = this.initAnimations(animationConfig)
 
         // 初始化动画图片
         let fs = this.frames()
-        if (fs === undefined) {
+        if (fs === undefined || this.animationsName === undefined) {
             log("未正确初始化 GuaAnimation")
             return
         }
@@ -32,26 +41,36 @@ class GuaAnimation {
         return new this(game)
     }
 
-    initAnimations(animationInfo) {
-        /**
-         let animationInfo = [{
-            animationName: 'bird',
-            animationNum: 4,
-        }]
-         */
+    initAnimations(animationConfig) {
+        /*
+       let animationConfig = {
+           textures: [{
+               animationName: 'bird',
+               animationNum: 4,
+               reverse: false
+           }],
+           animationsName: 'bird'
+       }
+       */
+        let texturesInfo = animationConfig.textures
         let game = this.game
         let animations = {}
-        log('animationInfo', animationInfo)
-        for (let info of animationInfo) {
+        for (let info of texturesInfo) {
             let animationName = info.animationName
             let num = info.animationNum
+            let reverse = info.reverse || false
             animations[animationName] = []
-            for (let i = 1; i < num; i++) {
+            for (let i = 0; i < num; i++) {
+                log(animationConfig.animationsName, i)
                 let name = `${animationName}${i}`
                 let t = game.textureByName(name)
                 animations[animationName].push(t)
             }
+            if (reverse) {
+                animations[animationName].reverse()
+            }
         }
+        this.animationsName = animationConfig.animationsName
         return animations
 
     }
