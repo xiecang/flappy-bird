@@ -9,36 +9,31 @@ class SceneTitle extends GuaScene {
         this.pipe = Pipes.new(game)
         this.addElement(this.pipe)
         this.pipe.kill()
-        // 循环移动的地面
 
-        this.grounds = []
-        for (let i = 0; i < 3; i++) {
-            let g = GuaImage.new(game, 'ground')
-            g.x = i * 336
-            g.y = 450
-            this.addElement(g)
-            this.grounds.push(g)
-        }
-        this.skipCount = 4
+        this.ground = Ground.new(game)
+        this.addElement(this.ground)
 
-        // let bird = GuaAnimation.new(game)
-        let bird = Bird.new(game)
-        bird.x = 100
-        bird.y = 200
-        this.bird = bird
-        this.birdSpeed = 2
-        this.addElement(bird)
-
-        this.bird.kill()
+        this.initBird()
 
         this.textReady = GuaImage.new(this.game, 'textReady')
-
+        this.addElement(this.textReady)
 
         this.setupInputs()
     }
 
     debug() {
         this.birdSpeed = config.birdSpeed.value
+    }
+
+    initBird() {
+        let game = this.game
+        let bird = Bird.new(game)
+        bird.x = 100
+        bird.y = 200
+        this.bird = bird
+        this.birdSpeed = 2
+        this.addElement(bird)
+        this.bird.kill()
     }
 
     initCave() {
@@ -54,26 +49,6 @@ class SceneTitle extends GuaScene {
 
         // 画教程
         this.drawLabel("按k开始游戏")
-        // 播放倒计时
-
-        // 倒计时结束后，bird alive, 地面循环移动
-
-        //
-
-        // 循环让地面移动
-        // 当 skipCount == 0 时，反向移动 15，正常情况 -5
-        this.skipCount--
-        this.offset = -5
-        if (this.skipCount === 0) {
-            this.skipCount = 4
-            this.offset = 15
-        }
-        for (let i = 0; i < 3; i++) {
-            let g = this.grounds[i]
-            g.x += this.offset
-        }
-
-
     }
 
     setupInputs() {
@@ -85,16 +60,7 @@ class SceneTitle extends GuaScene {
             countDown.x = 260
             countDown.y = 200
             self.addElement(countDown)
-            // this.
         })
     }
 
-    draw() {
-        super.draw()
-        this.drawStart()
-    }
-
-    drawStart() {
-        this.textReady.draw()
-    }
 }
