@@ -1,7 +1,7 @@
 class Score {
     constructor(game) {
-        // this.score = 0
-        this.score = 10
+        this.score = 0
+        // this.score = 10
         this.game = game
 
         this.fonts = []
@@ -17,15 +17,19 @@ class Score {
         let game = this.game
         let s = JSON.parse(JSON.stringify(this.score))
         let fonts = []
-        while (s > 0) {
+        let i = 0
+        do {
             let n = s % 10
             let name = `font${n}`
             let font = GuaImage.new(game, name)
-            font.x = 300 + font.w * 2 + 5
+            font.x = 500 - font.w * i
             font.y = 200
+            log(font.x, font.y)
             fonts.push(font)
             s = Math.floor(s / 10)
-        }
+            i++
+        } while (s > 0)
+
         fonts.reverse()
         // log(fonts)
         this.fonts = fonts
