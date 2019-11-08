@@ -1,14 +1,22 @@
 class GuaLabel {
-    constructor(game, text) {
+    constructor(game, text, x, y, color, fontSize) {
         this.game = game
-        this.text = text
+        this.text = text || ''
+        this.x = x || 0
+        this.y = y || 0
+        this.color = color || 'green'
+        this.fontSize = fontSize || 20
     }
-    static new(game, text) {
-        let i = new this(game, text)
+    static new(...args) {
+        let i = new this(...args)
         return i
     }
     draw() {
-        this.game.context.fillText(this.text, 150, 200)
+        let context = this.game.context
+
+        context.font = this.fontSize + "px serif";
+        context.fillStyle = this.color
+        context.fillText(this.text, this.x, this.y)
     }
     update() {
     }

@@ -1,15 +1,3 @@
-let loadLevel = function(game, n) {
-    n = n - 1
-    let level = levels[n]
-    let blocks = []
-    for (let i = 0; i < level.length; i++) {
-        let p = level[i]
-        let b = Block(game, p)
-        blocks.push(b)
-    }
-    return blocks
-}
-
 let enableDebugMode = function (game, enable) {
     if (!enable) {
         return
@@ -126,7 +114,6 @@ let __main = function () {
         numberScore8: 'img/number_score_08.png',
         numberScore9: 'img/number_score_09.png',
     }
-    // 这里有个回调的问题需要加上function, 并将操作放在其中
     let game = GuaGame.instance(30, images, function(game){
         let s = Scene.new(game)
         // let s = SceneTitle.new(game)

@@ -11,11 +11,13 @@ class GameOver extends GuaImage {
     }
 
     move() {
-        this.y += 5
+        this.y += config.gameOverTextSpeed.value
     }
 
     draw() {
         super.draw()
+        this.scorePanel && this.scorePanel.draw()
+
         // 当前分数
         for (let e of this.scores) {
             e.draw()
@@ -25,7 +27,8 @@ class GameOver extends GuaImage {
             // log('draw bestScores')
             e.draw()
         }
-        this.scorePanel && this.scorePanel.draw()
+
+        this.restartText && this.restartText.draw()
     }
 
     update() {
@@ -46,11 +49,19 @@ class GameOver extends GuaImage {
             }
             // 当前分数
             let s = this.score.score
-            this.scores = this.showScoreByNum(s, 100, 200)
+            let scoreX = config.finalScoreX.value
+            let scoreY = config.finalScoreY.value
+            this.scores = this.showScoreByNum(s, scoreX, scoreY)
             // 最好分数
             let bestScore = this.score.bestScore
-            this.bestScores = this.showScoreByNum(bestScore, 120, 200)
+            let bestScoreX = config.bestScoreX.value
+            let bestScoreY = config.bestScoreY.value
+            this.bestScores = this.showScoreByNum(bestScore, bestScoreX, bestScoreY)
             // log(bestScore, this.bestScores)
+
+            this.restartTextX = 240
+            this.restartTextY = 180
+            this.restartText = GuaLabel.new(g, "按 r 再来一次", this.restartTextX, this.restartTextY, 'yellow', 20)
 
         }
     }

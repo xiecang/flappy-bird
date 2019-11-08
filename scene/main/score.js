@@ -24,8 +24,8 @@ class Score {
             let n = s % 10
             let name = `font${n}`
             let font = GuaImage.new(game, name)
-            font.x = 500 - font.w * i
-            font.y = 200
+            font.x = config.scoreX.value - font.w * i
+            font.y = config.scoreY.value
             fonts.push(font)
             s = Math.floor(s / 10)
             i++
@@ -51,11 +51,12 @@ class Score {
     }
 
     initStorage() {
-        let s = JSON.stringify({
+        let s = Score.load()
+        let score = JSON.stringify({
             score: 0,
-            bestScore: 0,
+            bestScore: s.bestScore,
         })
-        localStorage.flappyBird = s
+        localStorage.flappyBird = score
     }
 
     save() {
@@ -73,11 +74,17 @@ class Score {
             bestScore: this.bestScore,
         }
         s = JSON.stringify(s)
-        localStorage.flappyBird.scores = s
+        localStorage.flappyBird = s
     }
 
     static load() {
         let scores = localStorage.flappyBird
+        if (scores === undefined) {
+            return {
+                score: 0,
+                bestScore: 0,
+            }
+        }
         let s = JSON.parse(scores)
         return s
     }

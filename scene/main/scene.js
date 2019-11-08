@@ -28,6 +28,8 @@ class Scene extends GuaScene {
         // 初始化分数
         this.score = Score.new(game)
         this.addElement(this.score)
+
+        this.gameOver = false
     }
 
 
@@ -73,8 +75,13 @@ class Scene extends GuaScene {
         super.update()
         let game = this.game
 
-        if (!this.bird.alive) {
-            return
+        if (this.gameOver) {
+            this.bird.y += 16
+            this.bird.rotation = 45
+            if (this.bird.y > 410) {
+                this.bird.y = 410
+            }
+
         }
 
         // bird 与 pipe 碰撞检测
@@ -82,6 +89,7 @@ class Scene extends GuaScene {
             if (p.collide(this.bird)) {
                 log("bird 与 pipe 碰撞")
                 // 添加结束动画
+                this.gameOver = true
                 this.updateEnd()
                 return
             }
@@ -100,6 +108,7 @@ class Scene extends GuaScene {
 
                 // 添加结束动画
                 this.updateEnd()
+                this.gameOver = true
                 return
             }
         }
@@ -112,18 +121,12 @@ class Scene extends GuaScene {
         this.pipe.kill()
         this.score.kill()
 
-        // 小鸟下坠
-        this.bird.y--
-        if (this.bird.y > 410) {
-            this.bird.y = 410
-        }
-
         // 背景变为黑色
         this.bg.replaceToNight()
 
         // 画结束场景
-        this.gameOver = GameOver.instance(game)
-        this.addElement(this.gameOver)
+        let gameOver = GameOver.instance(game)
+        this.addElement(gameOver)
     }
 
 
