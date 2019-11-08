@@ -16,6 +16,9 @@ class Scene extends GuaScene {
         this.addElement(this.ground)
 
         this.initBird()
+
+        this.score = Score.new(game)
+        this.addElement(this.score)
         this.setupInputs()
     }
     debug() {
@@ -46,23 +49,29 @@ class Scene extends GuaScene {
             return
         }
 
-        // // bird 与 pipe 碰撞检测
-        // for(let p of this.pipe.pipes) {
-        //     if (p.collide(this.bird)) {
-        //         log("bird 与 pipe 碰撞")
-        //         this.bird.kill()
-        //         // 游戏结束
-        //
-        //         this.pipe.kill()
-        //     }
-        // }
-        //
-        // // bird 与 地面 碰撞检测
-        // for(let g of this.grounds) {
-        //     if (g.collide(this.bird)) {
-        //         // log("bird 与 地面 碰撞")
-        //     }
-        // }
+
+        // bird 与 pipe 碰撞检测
+        for(let p of this.pipe.pipes) {
+            if (p.collide(this.bird)) {
+                log("bird 与 pipe 碰撞")
+                // this.bird.kill()
+                // // 游戏结束
+                //
+                // this.pipe.kill()
+            }
+            // 统计分数
+            if (p.x  === this.bird.x && p.y > this.bird.y) {
+                this.score.score += 1
+                log('分数 +1', this.score.score)
+            }
+        }
+
+        // bird 与 地面 碰撞检测
+        for(let g of this.ground.grounds) {
+            if (g.collide(this.bird)) {
+                // log("bird 与 地面 碰撞")
+            }
+        }
 
     }
 

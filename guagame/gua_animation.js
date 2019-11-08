@@ -61,7 +61,6 @@ class GuaAnimation {
             let reverse = info.reverse || false
             animations[animationName] = []
             for (let i = 0; i < num; i++) {
-                log(animationConfig.animationsName, i)
                 let name = `${animationName}${i}`
                 let t = game.textureByName(name)
                 animations[animationName].push(t)
