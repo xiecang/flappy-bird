@@ -1,19 +1,27 @@
 class SceneEnd extends GuaScene {
     constructor(game) {
         super(game)
-        game.registerAction('r', function(){
+        this.setup()
+        this.setupInput()
+    }
+
+    setup() {
+        // 画背景
+
+        // 画分数
+    }
+
+    setupInput() {
+        let game = this.game
+        game.registerAction('r', function () {
             let s = SceneTitle.new(game)
             game.replaceScene(s)
         })
     }
-    // 使用 SceneTitle.new() 替代 new SceneTitle() 使用方式
-    // static new(game) {
-    //     let i = new this(game)
-    //     return i
-    // }
+
     draw() {
-        // draw lables
-        this.game.context.fillText('游戏结束，按 r 再来一次', 100, 190)
+        this.drawLabel("按 r 再来一次", 200, 300, 'green', 20)
+        // 画结束场景
     }
 
 }

@@ -10,6 +10,11 @@ class GuaImage {
         this.lives = 1
     }
 
+    static instance(...args) {
+        this.i = this.i || new this(...args)
+        return this.i
+    }
+
     static new(game, name) {
         let i = new this(game, name)
         return i

@@ -110,11 +110,13 @@ let __main = function () {
         font7: 'img/font_7.png',
         font8: 'img/font_8.png',
         font9: 'img/font_9.png',
+
+        gameOver: 'img/text_game_over.png',
     }
     // 这里有个回调的问题需要加上function, 并将操作放在其中
     let game = GuaGame.instance(30, images, function(game){
-        // let s = Scene.new(game)
-        let s = SceneTitle.new(game)
+        let s = Scene.new(game)
+        // let s = SceneTitle.new(game)
         game.runWithScene(s)
     })
     enableDebugMode(game, true)

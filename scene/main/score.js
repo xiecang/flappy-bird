@@ -24,7 +24,6 @@ class Score {
             let font = GuaImage.new(game, name)
             font.x = 500 - font.w * i
             font.y = 200
-            log(font.x, font.y)
             fonts.push(font)
             s = Math.floor(s / 10)
             i++
