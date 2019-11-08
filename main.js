@@ -115,8 +115,8 @@ let __main = function () {
         numberScore9: 'img/number_score_09.png',
     }
     let game = GuaGame.instance(30, images, function(game){
-        let s = Scene.new(game)
-        // let s = SceneTitle.new(game)
+        // let s = Scene.new(game)
+        let s = SceneTitle.new(game)
         game.runWithScene(s)
     })
     enableDebugMode(game, true)
