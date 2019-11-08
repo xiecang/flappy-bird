@@ -2,8 +2,9 @@ class SceneTitle extends GuaScene {
     constructor(game) {
         super(game)
 
-        // cave
-        this.initCave()
+        // bg
+        this.bg = Background.new(this.game)
+        this.addElement(this.bg)
 
         // 加入水管
         this.pipe = Pipes.new(game)
@@ -40,14 +41,6 @@ class SceneTitle extends GuaScene {
         this.birdSpeed = 2
         this.addElement(bird)
         this.bird.kill()
-    }
-
-    initCave() {
-        for (let i = 0; i < 2; i++) {
-            let cave = GuaImage.new(this.game, 'cave')
-            cave.x = i * cave.w
-            this.addElement(cave)
-        }
     }
 
     draw() {

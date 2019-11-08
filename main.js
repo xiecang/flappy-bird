@@ -91,7 +91,8 @@ let bindEvents = function() {
 let __main = function () {
     let images = {
         // 背景
-        cave: 'img/bg_day.png',
+        bg: 'img/bg_day.png',
+        bgNight: 'img/bg_night.png',
         ground: 'img/land.png',
         pipe: 'img/pipe_up.png',
         textReady: 'img/text_ready.png',
