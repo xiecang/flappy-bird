@@ -1,7 +1,6 @@
 class Background {
     constructor(game) {
         this.game = game
-        this.bgs = []
         this.bgName = 'bg'
         this.setup()
     }
@@ -12,7 +11,8 @@ class Background {
 
     setup() {
         let g = this.game
-
+        this.bgs = []
+        // log('bgName', this.bgName)
         for (let i = 0; i < 2; i++) {
             let bg = GuaImage.new(g, this.bgName)
             bg.x = i * bg.w
@@ -29,4 +29,16 @@ class Background {
     update() {
 
     }
+
+    replaceToNight() {
+        this.bgName = 'bgNight'
+        this.setup()
+        // log(this.bgs)
+    }
+
+    replaceToDay() {
+        this.bgName = 'bg'
+        this.setup()
+    }
+
 }

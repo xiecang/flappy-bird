@@ -44,6 +44,10 @@ class Scene extends GuaScene {
         self.game.registerAction('j', function (keyStatus) {
             b.jump()
         })
+        self.game.registerAction('r', function (keyStatus) {
+            let s = SceneTitle.new(self.game)
+            self.game.replaceScene(s)
+        })
     }
 
     debug() {
@@ -115,6 +119,7 @@ class Scene extends GuaScene {
         }
 
         // 背景变为黑色
+        this.bg.replaceToNight()
 
         // 画结束场景
         this.gameOver = GameOver.instance(game)
