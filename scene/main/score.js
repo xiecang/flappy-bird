@@ -5,7 +5,9 @@ class Score {
         this.game = game
 
         this.fonts = []
+        this.initStorage()
 
+        this.alive = true
     }
 
     static new(game) {
@@ -35,6 +37,9 @@ class Score {
     }
 
     update() {
+        if (!this.alive) {
+            return
+        }
         this.updateFont()
     }
 
@@ -45,5 +50,41 @@ class Score {
         }
     }
 
+    initStorage() {
+        let s = JSON.stringify({
+            score: 0,
+            bestScore: 0,
+        })
+        localStorage.flappyBird = s
+    }
+
+    save() {
+        /**
+         {
+            score: this.score,
+            bestScore: '',
+         }
+         */
+        let s = Score.load()
+        this.bestScore = Math.max(s.bestScore, this.score)
+
+        s = {
+            score: this.score,
+            bestScore: this.bestScore,
+        }
+        s = JSON.stringify(s)
+        localStorage.flappyBird.scores = s
+    }
+
+    static load() {
+        let scores = localStorage.flappyBird
+        let s = JSON.parse(scores)
+        return s
+    }
+
+    kill() {
+        this.alive = false
+        this.game.scene.deleteElement(this)
+    }
 
 }

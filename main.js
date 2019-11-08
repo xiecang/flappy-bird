@@ -112,6 +112,18 @@ let __main = function () {
         font9: 'img/font_9.png',
 
         gameOver: 'img/text_game_over.png',
+        scorePanel: 'img/score_panel.png',
+
+        numberScore0: 'img/number_score_00.png',
+        numberScore1: 'img/number_score_01.png',
+        numberScore2: 'img/number_score_02.png',
+        numberScore3: 'img/number_score_03.png',
+        numberScore4: 'img/number_score_04.png',
+        numberScore5: 'img/number_score_05.png',
+        numberScore6: 'img/number_score_06.png',
+        numberScore7: 'img/number_score_07.png',
+        numberScore8: 'img/number_score_08.png',
+        numberScore9: 'img/number_score_09.png',
     }
     // 这里有个回调的问题需要加上function, 并将操作放在其中
     let game = GuaGame.instance(30, images, function(game){
